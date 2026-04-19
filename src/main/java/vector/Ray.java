@@ -1,7 +1,27 @@
 package vector;
 
-public class Ray extends Vector3D {
-    public Ray(float x, float y, float z) {
-        super(x, y, z);
+public class Ray {
+    private Vector3D origin;
+    private Vector3D direction;
+
+    public Vector3D getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Vector3D direction) {
+        this.direction = direction;
+    }
+
+    public Vector3D getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(Vector3D origin) {
+        this.origin = origin;
+    }
+
+    public Ray(Vector3D origin, Vector3D direction) {
+        setOrigin(origin);
+        setDirection(direction);
     }
 }
