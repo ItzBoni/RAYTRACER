@@ -31,7 +31,6 @@ public class Raytracer{
                 if (i != null && i.exists()) {
                     Object3D hitObject = i.getObject();
                     Vector3D color = hitObject.getObjectColor();
-                    // apply color to result BufferedImage at (x, y)
                     result.setRGB(x, y, convertToRGB(color));
                 } else {
                     Vector3D color = scene.getBackgroundColor();
