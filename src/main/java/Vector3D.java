@@ -1,5 +1,3 @@
-package vector;
-
 public class Vector3D {
     private double x,y,z;
     private double magnitude;
@@ -14,38 +12,33 @@ public class Vector3D {
         setMagnitude(magnitude);
     }
 
+    //Getters and setters
     public double getX() {
         return x;
     }
-
     public void setX(double x) {
         this.x = x;
     }
-
     public double getY() {
         return y;
     }
-
     public void setY(double y) {
         this.y = y;
     }
-
     public double getZ() {
         return z;
     }
-
     public void setZ(double z) {
         this.z = z;
     }
-
     public double getMagnitude() {
         return magnitude;
     }
-
     public void setMagnitude(double magnitude) {
         this.magnitude = magnitude;
     }
 
+    //Definition of essential vector operations (used later)
     public static Vector3D sub(Vector3D a, Vector3D b) { return new Vector3D(a.x - b.x, a.y - b.y, a.z - b.z); }
     public static Vector3D add(Vector3D a, Vector3D b) { return new Vector3D(a.x + b.x, a.y + b.y, a.z + b.z); }
     public static Vector3D mult(Vector3D a, double s) { return new Vector3D(a.x * s, a.y * s, a.z * s); }
@@ -53,6 +46,13 @@ public class Vector3D {
     public static Vector3D cross(Vector3D a, Vector3D b) {
         return new Vector3D(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x);
     }
+    public static double lengthSquared(Vector3D v) { return Math.pow(v.getX(),2) + Math.pow(v.getY(),2) + Math.pow(v.getZ(), 2); }
 
-    public double lengthSquared() { return x * x + y * y + z * z; }
+    public static Vector3D normalize(Vector3D a){
+        double x_n = a.getX() / Math.sqrt(lengthSquared(a));
+        double y_n = a.getY() / Math.sqrt(lengthSquared(a));
+        double z_n = a.getZ() / Math.sqrt(lengthSquared(a));
+
+        return new Vector3D(x_n, y_n, z_n);
+    }
 }
