@@ -3,14 +3,19 @@ public class Intersection {
     private double t0;
     private double t1;
     private boolean exists;
+    private Object3D object;
 
     // For a hit
-    public Intersection(Vector3D point, double t0, double t1) {
+    // For a hit
+    public Intersection(Vector3D point, double t0, double t1, Object3D object) {
         this.exists = true;
         this.point = point;
         this.t0 = t0;
         this.t1 = t1;
+        this.object = object;
     }
+
+    public Object3D getObject() { return object; }
 
     // For a miss
     public Intersection(boolean exists) {

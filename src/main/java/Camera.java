@@ -7,8 +7,10 @@ public class Camera {
     private int imageHeight;
     private int imageWidth;
 
-    Camera(Vector3D origin, int height, int width){
+    Camera(Vector3D origin, Vector3D target, float fov, int height, int width){
         setPosition(origin);
+        setTarget(target);
+        setFov(fov);
         setImageHeight(height);
         setImageWidth(width);
     }
@@ -54,5 +56,21 @@ public class Camera {
 
     public void setImageWidth(int width){
         this.imageWidth = width;
+    }
+
+    public void setTarget(Vector3D target){
+        this.target = target;
+    }
+
+    public void setFov(float fov){
+        this.fov = fov;
+    }
+
+    public int getImageHeight() {
+        return imageHeight;
+    }
+
+    public int getImageWidth(){
+        return imageWidth;
     }
 }
