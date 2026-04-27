@@ -1,4 +1,6 @@
-import java.awt.*;
+package geometry;
+
+import tools.*;
 
 public class Sphere extends Object3D {
     private Vector3D position;

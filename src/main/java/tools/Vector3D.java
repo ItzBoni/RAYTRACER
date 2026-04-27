@@ -1,3 +1,5 @@
+package tools;
+
 public class Vector3D {
     private double x,y,z;
     private double magnitude;

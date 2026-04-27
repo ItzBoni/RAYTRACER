@@ -1,3 +1,6 @@
+import tools.Ray;
+import tools.Vector3D;
+
 public class Camera {
     private Vector3D position;
     private Vector3D target;

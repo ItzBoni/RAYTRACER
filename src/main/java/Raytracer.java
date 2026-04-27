@@ -1,3 +1,8 @@
+import geometry.Object3D;
+import tools.Intersection;
+import tools.Ray;
+import tools.Vector3D;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;

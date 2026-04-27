@@ -1,3 +1,7 @@
+package tools;
+
+import geometry.Object3D;
+
 public class Intersection {
     private Vector3D point;
     private double t0;

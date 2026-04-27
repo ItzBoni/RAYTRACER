@@ -1,6 +1,12 @@
+import geometry.Object3D;
+import geometry.Sphere;
+import tools.*;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import tools.*;
+import geometry.*;
 
 public class Main {
     public static void main(String[] args) {

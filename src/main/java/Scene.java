@@ -1,4 +1,8 @@
-import java.lang.reflect.Array;
+import geometry.Object3D;
+import tools.Intersection;
+import tools.Ray;
+import tools.Vector3D;
+
 import java.util.ArrayList;
 
 public class Scene {
