@@ -10,7 +10,6 @@ public class Intersection {
     private Object3D object;
 
     // For a hit
-    // For a hit
     public Intersection(Vector3D point, double t0, double t1, Object3D object) {
         this.exists = true;
         this.point = point;
@@ -19,13 +18,13 @@ public class Intersection {
         this.object = object;
     }
 
-    public Object3D getObject() { return object; }
-
     // For a miss
     public Intersection(boolean exists) {
         this.exists = false;
         this.point = null;
     }
+
+    public Object3D getObject() { return object; }
 
     public boolean exists() { return exists; }
     public Vector3D getPoint() { return point; }

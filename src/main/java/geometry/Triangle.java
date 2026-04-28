@@ -19,18 +19,29 @@ public class Triangle extends Object3D{
         Vector3D origin = ray.getOrigin();
 
         Vector3D e1 = Vector3D.sub(this.pointB, this.pointA);
-        Vector3D e2 = Vector3D.sub(this.pointC, this.pointC);
+        Vector3D e2 = Vector3D.sub(this.pointC, this.pointA);
         Vector3D travel = Vector3D.sub(origin, this.pointA);
 
         Vector3D p = Vector3D.cross(direction, e2);
         double detM = Vector3D.dot(p, e1);
 
+        if (Math.abs(detM) < 1e-8) return new Intersection(false);
 
-        if (detM == 0) return new Intersection(false);
+        Vector3D q = Vector3D.cross(travel, e1);
+        double smallT = Vector3D.dot(q, e2) / detM;
 
+        if (smallT < 0) return new Intersection(false);
 
+        this.u = Vector3D.dot(p, travel) / detM;
+        if (this.u < 0 || this.u > 1) return new Intersection(false);
 
-        return null;
+        this.v = Vector3D.dot(q, direction) / detM;
+        if (this.v < 0 || this.u + this.v > 1) return new Intersection(false);
+
+        this.w = 1 - (this.u + this.v);
+
+        Vector3D point = Vector3D.add(origin, Vector3D.mult(direction, smallT));
+        return new Intersection(point, smallT, smallT, this);
     }
 
     public Vector3D getPointA() {
