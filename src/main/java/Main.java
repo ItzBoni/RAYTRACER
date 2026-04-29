@@ -24,7 +24,7 @@ public class Main {
         objects.add(sphere2);
         objects.add(triangle);
 
-        Camera camera =new Camera(new Vector3D(0,0,0),new Vector3D(0,0,1),60f,2000,2000);
+        Camera camera = new Camera(new Vector3D(0,0,0),new Vector3D(0,0,1),60f,2000,2000, 100, 3000);
 
         Scene s = new Scene(camera, objects, Raytracer.convertToVector(Color.white.getRGB()));
 

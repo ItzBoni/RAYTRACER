@@ -37,6 +37,11 @@ public class Raytracer{
                     Object3D hitObject = i.getObject();
                     Vector3D color = hitObject.getObjectColor();
                     result.setRGB(x, y, convertToRGB(color));
+                } else if (i!= null &&
+                        (i.getT0() < this.scene.getCamera().getNearPlane() ||
+                                i.getT0() < this.scene.getCamera().getFarPlane())){
+                    Vector3D color = scene.getBackgroundColor();
+                    result.setRGB(x,y,convertToRGB(color));
                 } else {
                     Vector3D color = scene.getBackgroundColor();
                     result.setRGB(x,y,convertToRGB(color));

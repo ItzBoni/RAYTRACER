@@ -9,13 +9,17 @@ public class Camera {
     private float fov;
     private int imageHeight;
     private int imageWidth;
+    private double nearPlane;
+    private double farPlane;
 
-    Camera(Vector3D origin, Vector3D target, float fov, int height, int width){
+    Camera(Vector3D origin, Vector3D target, float fov, int height, int width, double nP, double fP){
         setPosition(origin);
         setTarget(target);
         setFov(fov);
         setImageHeight(height);
         setImageWidth(width);
+        setNearPlane(nP);
+        setFarPlane(fP);
     }
 
     public Ray sendRay(int x, int y) {
@@ -75,5 +79,21 @@ public class Camera {
 
     public int getImageWidth(){
         return imageWidth;
+    }
+
+    public double getNearPlane() {
+        return nearPlane;
+    }
+
+    public void setNearPlane(double nearPlane) {
+        this.nearPlane = nearPlane;
+    }
+
+    public double getFarPlane() {
+        return farPlane;
+    }
+
+    public void setFarPlane(double farPlane) {
+        this.farPlane = farPlane;
     }
 }
