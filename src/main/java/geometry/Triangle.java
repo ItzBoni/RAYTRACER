@@ -3,14 +3,14 @@ package geometry;
 import tools.*;
 
 public class Triangle extends Object3D{
-    private Vector3D pointA, pointB, pointC;
+    private Vector3D[] points;
+    private Vector3D[] vertexNormals;
     private double u, v, w;
 
-    public Triangle(Vector3D v0, Vector3D v1, Vector3D v2, Vector3D color){
-        setPointA(v0);
-        setPointB(v1);
-        setPointC(v2);
+    public Triangle(Vector3D v0, Vector3D v1, Vector3D v2, Vector3D[] vertexNormals,Vector3D color){
+        this.points = new Vector3D[]{v0, v1, v2};
         setObjectColor(color);
+        setNormal(vertexNormals);
     }
 
     @Override
@@ -18,9 +18,9 @@ public class Triangle extends Object3D{
         Vector3D direction = ray.getDirection();
         Vector3D origin = ray.getOrigin();
 
-        Vector3D e1 = Vector3D.sub(this.pointB, this.pointA);
-        Vector3D e2 = Vector3D.sub(this.pointC, this.pointA);
-        Vector3D travel = Vector3D.sub(origin, this.pointA);
+        Vector3D e1 = Vector3D.sub(this.points[1], this.points[0]);
+        Vector3D e2 = Vector3D.sub(this.points[2], this.points[0]);
+        Vector3D travel = Vector3D.sub(origin, this.points[0]);
 
         Vector3D p = Vector3D.cross(direction, e2);
         double detM = Vector3D.dot(p, e1);
@@ -44,27 +44,23 @@ public class Triangle extends Object3D{
         return new Intersection(point, smallT, smallT, this);
     }
 
-    public Vector3D getPointA() {
-        return pointA;
+    public Vector3D[] getPoints() {
+        return points;
     }
 
-    public void setPointA(Vector3D pointA) {
-        this.pointA = pointA;
+    public Vector3D getPoint(int index) {
+        return points[index];
     }
 
-    public Vector3D getPointB() {
-        return pointB;
+    public void setPoint(int index, Vector3D point) {
+        this.points[index] = point;
     }
 
-    public void setPointB(Vector3D pointB) {
-        this.pointB = pointB;
+    public Vector3D[] getVertexNormals() {
+        return vertexNormals;
     }
 
-    public Vector3D getPointC() {
-        return pointC;
-    }
-
-    public void setPointC(Vector3D pointC) {
-        this.pointC = pointC;
+    public void setNormal(Vector3D[] normal) {
+        this.vertexNormals = normal;
     }
 }
