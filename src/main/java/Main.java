@@ -5,21 +5,24 @@ import tools.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import tools.*;
 import geometry.*;
 
 public class Main {
     public static void main(String[] args) {
-
+        Scanner sc = new Scanner(System.in);
         ArrayList<Object3D> objects = new ArrayList<>();
-        String loc = "C:/Users/luchy/OneDrive/Desktop/RAYTRACER/public/Lowpoly_tree_sample.obj";
+        System.out.println("Input absolute path of .obj path");
+        String loc = sc.nextLine();
         Topology cubo = ObjReader.reader(loc);
 
         objects.add(cubo);
 
-        Camera camera = new Camera(new Vector3D(0,0,-200),new Vector3D(0,0,1),60f,3000,3000, 100, 3000);
+        Camera camera = new Camera(new Vector3D(0,0,-100),new Vector3D(0,0,1),60f,3000,3000, 100, 3000);
 
-        Scene s = new Scene(camera, objects, Raytracer.convertToVector(Color.white.getRGB()));
+        Scene s = new Scene(camera, objects, Raytracer.convertToVector(Color.black.getRGB()));
 
         Raytracer r = new Raytracer(s);
 

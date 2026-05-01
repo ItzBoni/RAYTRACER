@@ -92,7 +92,7 @@ public class ObjReader {
             }
         }
 
-        Vector3D defaultColor = new Vector3D(255, 255, 255);
+        Vector3D defaultColor = new Vector3D(0, 0, 255);
         return new Triangle(faceVertices[0], faceVertices[1], faceVertices[2],
                 faceNormals, defaultColor);
     }
