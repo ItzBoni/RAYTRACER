@@ -50,7 +50,7 @@ public class Triangle extends Object3D{
         Vector3D v = Vector3D.sub(this.points[1], this.points[0]);
         Vector3D w = Vector3D.sub(this.points[0], this.points[2]);
 
-        super.normal = Vector3D.cross(v, w);
+        super.normal = Vector3D.normalize(Vector3D.cross(v, w));
     }
 
     public Vector3D[] getPoints() {

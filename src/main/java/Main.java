@@ -19,7 +19,7 @@ public class Main {
         objects.add(cubo);
 
         Light light = new Light(new Vector3D(0,0,100), new Vector3D(0,0,1), Vector3D.convertToVector(Color.white.getRGB()), 0.75);
-        Camera camera = new Camera(new Vector3D(0,-20,-25),new Vector3D(0,0,1),60f,3000,3000, 100, 3000);
+        Camera camera = new Camera(new Vector3D(0,0,-50),new Vector3D(0,0,1),60f,3000,3000, 100, 3000);
 
         Scene s = new Scene(camera, objects, Vector3D.convertToVector(Color.black.getRGB()), light);
 

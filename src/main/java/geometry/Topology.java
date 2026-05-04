@@ -12,6 +12,7 @@ public class Topology extends Object3D implements Intersectable {
 
     public Topology(Vector3D origin, ArrayList<Triangle> t) {
         setTriangles(t);
+        setOrigin(origin);
     }
 
     @Override

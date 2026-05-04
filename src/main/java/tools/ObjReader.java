@@ -43,11 +43,6 @@ public class ObjReader {
 
         Vector3D meshCenter = calculateOrigin(vertices);
 
-        for (int i = 0; i < vertices.size(); i++) {
-            Vector3D v = vertices.get(i);
-            vertices.set(i, Vector3D.sub(v, meshCenter));
-        }
-
         return new Topology(meshCenter, faces);
     }
 
@@ -92,7 +87,7 @@ public class ObjReader {
             }
         }
 
-        Vector3D defaultColor = new Vector3D(0, 0, 255);
+        Vector3D defaultColor = new Vector3D(0, 0, 1);
         return new Triangle(faceVertices[0], faceVertices[1], faceVertices[2],
                 faceNormals, defaultColor);
     }

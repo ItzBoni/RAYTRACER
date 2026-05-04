@@ -70,6 +70,10 @@ public class Vector3D {
     }
     public static double lengthSquared(Vector3D v) { return Math.pow(v.getX(),2) + Math.pow(v.getY(),2) + Math.pow(v.getZ(), 2); }
 
+    public static Vector3D hadamard(Vector3D a, Vector3D b ) {
+        return new Vector3D(a.x * b.x, a.y * b.y, a.z * b.z);
+    }
+
     public static Vector3D normalize(Vector3D a){
         double x_n = a.getX() / Math.sqrt(lengthSquared(a));
         double y_n = a.getY() / Math.sqrt(lengthSquared(a));
