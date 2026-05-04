@@ -1,19 +1,19 @@
 import geometry.Object3D;
-import tools.Intersection;
-import tools.Ray;
-import tools.Vector3D;
+import tools.*;
 
 import java.util.ArrayList;
 
 public class Scene {
     ArrayList<Object3D> objects;
     Camera camera;
+    Light light;
     Vector3D backgroundColor;
 
-    public Scene(Camera camera, ArrayList<Object3D> obj, Vector3D bgColor){
+    public Scene(Camera camera, ArrayList<Object3D> obj, Vector3D bgColor, Light light){
         setCamera(camera);
         setObjects(obj);
         setBackgroundColor(bgColor);
+        setLight(light);
     }
 
     public Intersection calculateNearIntersection(Ray ray){
@@ -32,6 +32,14 @@ public class Scene {
         return closest;
     }
     //Getters and Setters
+    public void setLight(Light light){
+        this.light = light;
+    }
+
+    public Light getLight() {
+        return this.light;
+    }
+
     public void setCamera(Camera camera) {
         this.camera = camera;
     }

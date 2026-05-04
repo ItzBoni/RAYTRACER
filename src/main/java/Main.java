@@ -1,5 +1,4 @@
 import geometry.Object3D;
-import geometry.Sphere;
 import tools.*;
 
 import java.awt.*;
@@ -7,7 +6,6 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import tools.*;
 import geometry.*;
 
 public class Main {
@@ -20,9 +18,10 @@ public class Main {
 
         objects.add(cubo);
 
-        Camera camera = new Camera(new Vector3D(0,0,-100),new Vector3D(0,0,1),60f,3000,3000, 100, 3000);
+        Light light = new Light(new Vector3D(0,0,100), new Vector3D(0,0,1), Vector3D.convertToVector(Color.white.getRGB()), 0.75);
+        Camera camera = new Camera(new Vector3D(0,-20,-25),new Vector3D(0,0,1),60f,3000,3000, 100, 3000);
 
-        Scene s = new Scene(camera, objects, Raytracer.convertToVector(Color.black.getRGB()));
+        Scene s = new Scene(camera, objects, Vector3D.convertToVector(Color.black.getRGB()), light);
 
         Raytracer r = new Raytracer(s);
 

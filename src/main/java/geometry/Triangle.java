@@ -4,13 +4,14 @@ import tools.*;
 
 public class Triangle extends Object3D{
     private Vector3D[] points;
-    private Vector3D[] vertexNormals;
+    private Vector3D[] vertexNormals; //Will use them later for computing smooth shading
     private double u, v, w;
 
     public Triangle(Vector3D v0, Vector3D v1, Vector3D v2, Vector3D[] vertexNormals,Vector3D color){
         this.points = new Vector3D[]{v0, v1, v2};
         setObjectColor(color);
-        setNormal(vertexNormals);
+        setVertexNormals(vertexNormals);
+        calculateNormal();
     }
 
     @Override
@@ -44,6 +45,14 @@ public class Triangle extends Object3D{
         return new Intersection(point, smallT, smallT, this);
     }
 
+    private void calculateNormal(){
+        //Temporary since I'll add smooth-shading normals later.
+        Vector3D v = Vector3D.sub(this.points[1], this.points[0]);
+        Vector3D w = Vector3D.sub(this.points[0], this.points[2]);
+
+        super.normal = Vector3D.cross(v, w);
+    }
+
     public Vector3D[] getPoints() {
         return points;
     }
@@ -60,7 +69,15 @@ public class Triangle extends Object3D{
         return vertexNormals;
     }
 
-    public void setNormal(Vector3D[] normal) {
+    public void setVertexNormals(Vector3D[] normal) {
         this.vertexNormals = normal;
+    }
+
+    public Vector3D getNormal() {
+        return this.normal;
+    }
+
+    public void setNormal(Vector3D normal){
+        this.normal = normal;
     }
 }

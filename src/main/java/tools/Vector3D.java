@@ -1,5 +1,9 @@
 package tools;
 
+import java.awt.*;
+
+import static java.lang.Math.clamp;
+
 public class Vector3D {
     private double x,y,z;
     private double magnitude;
@@ -12,6 +16,22 @@ public class Vector3D {
         double magnitude = Math.sqrt((Math.pow(this.x,2))+(Math.pow(this.y,2))+(Math.pow(this.z,2)));
 
         setMagnitude(magnitude);
+    }
+
+    public static int convertToRGB(Vector3D rgbVector){
+        int r = (int) clamp(rgbVector.getX() * 255, 0, 255);
+        int g = (int) clamp(rgbVector.getY() * 255, 0, 255);
+        int b = (int) clamp(rgbVector.getZ() * 255, 0, 255);
+        return new Color(r, g, b).getRGB();
+    }
+
+    public static Vector3D convertToVector(int rgb){
+        Color color = new Color(rgb);
+        double r = color.getRed() / 255.0;
+        double g = color.getGreen() / 255.0;
+        double b = color.getBlue() / 255.0;
+
+        return new Vector3D(r, g, b);
     }
 
     //Getters and setters

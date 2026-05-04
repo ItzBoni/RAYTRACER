@@ -6,7 +6,7 @@ import tools.Vector3D;
 
 import java.util.ArrayList;
 
-public class Topology extends Object3D {
+public class Topology extends Object3D implements Intersectable {
     private Vector3D origin;
     private ArrayList<Triangle> triangles;
 

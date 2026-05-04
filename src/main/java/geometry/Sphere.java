@@ -3,7 +3,7 @@ package geometry;
 import tools.*;
 
 public class Sphere extends Object3D {
-    private Vector3D position;
+    private Vector3D position, normal;
     private double radius;
 
     public Sphere(Vector3D position, double radius, Vector3D sphereColor) {
@@ -12,6 +12,7 @@ public class Sphere extends Object3D {
         this.objectColor = sphereColor;
     }
 
+    @Override
     public Intersection intersect(Ray ray) {
         // L = C - O
         Vector3D L = Vector3D.sub(position, ray.getOrigin());

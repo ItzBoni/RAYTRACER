@@ -1,10 +1,7 @@
 import geometry.Object3D;
-import tools.Intersection;
-import tools.Ray;
-import tools.Vector3D;
+import tools.*;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -32,40 +29,25 @@ public class Raytracer{
             for (int y = 0; y < sceneHeight; y++){
                 Ray ray = scene.getCamera().sendRay(x,y);
                 Intersection i = scene.calculateNearIntersection(ray);
+                Light light = scene.getLight();
 
                 if (i != null && i.exists()) {
                     Object3D hitObject = i.getObject();
-                    Vector3D color = hitObject.getObjectColor();
-                    result.setRGB(x, y, convertToRGB(color));
+                    Vector3D color = hitObject.getObjectColor(light.getColor(), light.getTarget(), light.getIntensity());
+                    result.setRGB(x, y, Vector3D.convertToRGB(color));
                 } else if (i!= null &&
                         (i.getT0() < this.scene.getCamera().getNearPlane() ||
                                 i.getT0() < this.scene.getCamera().getFarPlane())){
                     Vector3D color = scene.getBackgroundColor();
-                    result.setRGB(x,y,convertToRGB(color));
+                    result.setRGB(x,y, Vector3D.convertToRGB(color));
                 } else {
                     Vector3D color = scene.getBackgroundColor();
-                    result.setRGB(x,y,convertToRGB(color));
+                    result.setRGB(x,y, Vector3D.convertToRGB(color));
                 }
             }
         }
 
         return result;
-    }
-
-    private static int convertToRGB(Vector3D rgbVector){
-        int r = (int) clamp(rgbVector.getX() * 255, 0, 255);
-        int g = (int) clamp(rgbVector.getY() * 255, 0, 255);
-        int b = (int) clamp(rgbVector.getZ() * 255, 0, 255);
-        return new Color(r, g, b).getRGB();
-    }
-
-    public static Vector3D convertToVector(int rgb){
-        Color color = new Color(rgb);
-        double r = color.getRed() / 255.0;
-        double g = color.getGreen() / 255.0;
-        double b = color.getBlue() / 255.0;
-
-        return new Vector3D(r, g, b);
     }
 
     public void exportToPNG(BufferedImage img){
