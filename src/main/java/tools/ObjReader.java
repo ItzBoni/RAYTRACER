@@ -33,7 +33,21 @@ public class ObjReader {
                 } else if (identifier.equals("vt")) {
                     vertexTextures.add(extractCoords(values));
                 } else if (identifier.equals("f")) {
-                    faces.add(extractFace(values, vertices, normals));
+                    String[] group = values.split(" ");
+
+                    if (group.length > 3){
+                        String[] temp = new String[3];
+                        temp[0] = group[0];
+
+                        for (int i = 0; i < (group.length - 2); i++){
+                            temp[1] = group[i+1];
+                            temp[2] = group[i+2];
+
+                            faces.add(extractFace(temp,vertices,normals));
+                        }
+                    } else {
+                        faces.add(extractFace(group, vertices, normals));
+                    }
                 }
             }
 
@@ -69,8 +83,7 @@ public class ObjReader {
         return new Vector3D(x, y, z);
     }
 
-    private static Triangle extractFace(String s, ArrayList<Vector3D> vertices, ArrayList<Vector3D> normals) {
-        String[] groups = s.split(" ");
+    private static Triangle extractFace(String[] groups, ArrayList<Vector3D> vertices, ArrayList<Vector3D> normals) {
         Vector3D[] faceVertices = new Vector3D[3];
         Vector3D[] faceNormals  = new Vector3D[3];
 

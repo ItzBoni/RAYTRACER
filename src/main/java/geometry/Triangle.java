@@ -2,16 +2,17 @@ package geometry;
 
 import tools.*;
 
-public class Triangle extends Object3D{
+public class Triangle implements Intersectable{
     private Vector3D[] points;
-    private Vector3D[] vertexNormals; //Will use them later for computing smooth shading
+    private Vector3D[] vertexNormals;
+    private Vector3D color;//Will use them later for computing smooth shading
     private double u, v, w;
 
-    public Triangle(Vector3D v0, Vector3D v1, Vector3D v2, Vector3D[] vertexNormals,Vector3D color){
+    public Triangle(Vector3D v0, Vector3D v1, Vector3D v2, Vector3D[] vertexNormals, Vector3D color){
         this.points = new Vector3D[]{v0, v1, v2};
-        setObjectColor(color);
+        setColor(color);
         setVertexNormals(vertexNormals);
-        calculateNormal();
+        calculateFaceNormal();
     }
 
     @Override
@@ -45,12 +46,21 @@ public class Triangle extends Object3D{
         return new Intersection(point, smallT, smallT, this);
     }
 
-    private void calculateNormal(){
+    //Calculate normal at intersection for Phong shading.
+    private void calculateVertexNormals(){
+
+    }
+
+    private Vector3D calculateFaceNormal(){
         //Temporary since I'll add smooth-shading normals later.
         Vector3D v = Vector3D.sub(this.points[1], this.points[0]);
         Vector3D w = Vector3D.sub(this.points[0], this.points[2]);
 
-        super.normal = Vector3D.normalize(Vector3D.cross(v, w));
+        return Vector3D.normalize(Vector3D.cross(v, w));
+    }
+
+    private Vector3D calculatePhongNormal(Vector3D vertexNormal){
+
     }
 
     public Vector3D[] getPoints() {
@@ -79,5 +89,9 @@ public class Triangle extends Object3D{
 
     public void setNormal(Vector3D normal){
         this.normal = normal;
+    }
+
+    public void setColor(Vector3D color) {
+        this.color = color;
     }
 }

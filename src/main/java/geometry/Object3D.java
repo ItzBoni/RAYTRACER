@@ -17,5 +17,9 @@ public abstract class Object3D implements Intersectable{
         return Vector3D.mult(computedColor, lambertianLight);
     }
 
+    public Vector3D getObjectColor(){
+        return this.objectColor;
+    }
+
     public void setObjectColor(Vector3D objectColor){ this.objectColor = objectColor;}
 }

@@ -6,7 +6,7 @@ import tools.Vector3D;
 
 import java.util.ArrayList;
 
-public class Topology extends Object3D implements Intersectable {
+public class Topology extends Object3D {
     private Vector3D origin;
     private ArrayList<Triangle> triangles;
 
@@ -19,8 +19,11 @@ public class Topology extends Object3D implements Intersectable {
     public Intersection intersect(Ray ray) {
         Intersection closest = null;
 
+        Vector3D localOrigin = Vector3D.sub(ray.getOrigin(), this.origin);
+        Ray localRay = new Ray(localOrigin, ray.getDirection());
+
         for (Triangle triangle : triangles) {
-            Intersection i = triangle.intersect(ray);
+            Intersection i = triangle.intersect(localRay);
 
             if (!i.exists()) continue;
 

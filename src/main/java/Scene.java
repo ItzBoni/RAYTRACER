@@ -1,4 +1,5 @@
 import geometry.Object3D;
+import lights.Light;
 import tools.*;
 
 import java.util.ArrayList;

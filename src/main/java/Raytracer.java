@@ -1,4 +1,5 @@
 import geometry.Object3D;
+import lights.Light;
 import tools.*;
 
 import javax.imageio.ImageIO;
@@ -33,7 +34,7 @@ public class Raytracer{
 
                 if (i != null && i.exists()) {
                     Object3D hitObject = i.getObject();
-                    Vector3D color = hitObject.getObjectColor(light.getColor(), light.getTarget(), light.getIntensity());
+                    Vector3D color = hitObject.getObjectColor(light.getColor(), light.getDirection(), light.getIntensity());
                     result.setRGB(x, y, Vector3D.convertToRGB(color));
                 } else if (i!= null &&
                         (i.getT0() < this.scene.getCamera().getNearPlane() ||

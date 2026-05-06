@@ -27,9 +27,9 @@ public class Vector3D {
 
     public static Vector3D convertToVector(int rgb){
         Color color = new Color(rgb);
-        double r = color.getRed() / 255.0;
-        double g = color.getGreen() / 255.0;
-        double b = color.getBlue() / 255.0;
+        double r = Math.clamp((color.getRed() / 255.0), 0, 1);
+        double g = Math.clamp((color.getGreen() / 255.0), 0, 1);
+        double b = Math.clamp((color.getBlue() / 255.0), 0, 1);
 
         return new Vector3D(r, g, b);
     }
