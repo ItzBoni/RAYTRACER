@@ -7,14 +7,14 @@ import java.util.ArrayList;
 public class Scene {
     ArrayList<Object3D> objects;
     Camera camera;
-    Light light;
+    ArrayList<Light> lights;
     Vector3D backgroundColor;
 
-    public Scene(Camera camera, ArrayList<Object3D> obj, Vector3D bgColor, Light light){
+    public Scene(Camera camera, ArrayList<Object3D> obj, Vector3D bgColor, ArrayList<Light> lights){
         setCamera(camera);
         setObjects(obj);
         setBackgroundColor(bgColor);
-        setLight(light);
+        setLights(lights);
     }
 
     public Intersection calculateNearIntersection(Ray ray){
@@ -33,12 +33,12 @@ public class Scene {
         return closest;
     }
     //Getters and Setters
-    public void setLight(Light light){
-        this.light = light;
+    public void setLights(ArrayList<Light> lights){
+        this.lights = lights;
     }
 
-    public Light getLight() {
-        return this.light;
+    public ArrayList<Light> getLights() {
+        return this.lights;
     }
 
     public void setCamera(Camera camera) {

@@ -19,9 +19,9 @@ public class Vector3D {
     }
 
     public static int convertToRGB(Vector3D rgbVector){
-        int r = (int) clamp(rgbVector.getX() * 255, 0, 255);
-        int g = (int) clamp(rgbVector.getY() * 255, 0, 255);
-        int b = (int) clamp(rgbVector.getZ() * 255, 0, 255);
+        int r = (int) Math.clamp(rgbVector.getX() * 255, 0, 255);
+        int g = (int) Math.clamp(rgbVector.getY() * 255, 0, 255);
+        int b = (int) Math.clamp(rgbVector.getZ() * 255, 0, 255);
         return new Color(r, g, b).getRGB();
     }
 
@@ -80,5 +80,13 @@ public class Vector3D {
         double z_n = a.getZ() / Math.sqrt(lengthSquared(a));
 
         return new Vector3D(x_n, y_n, z_n);
+    }
+
+    public static Vector3D clampColor(Vector3D a){
+        double x_clamped = Math.clamp(a.getX(), 0.0, 1.0);
+        double y_clamped = Math.clamp(a.getY(), 0.0, 1.0);
+        double z_clamped = Math.clamp(a.getZ(), 0.0, 1.0);
+
+        return new Vector3D(x_clamped, y_clamped, z_clamped);
     }
 }

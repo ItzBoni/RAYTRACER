@@ -1,4 +1,3 @@
-import geometry.Object3D;
 import lights.Light;
 import tools.*;
 
@@ -6,6 +5,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static java.lang.Math.clamp;
 
@@ -30,10 +30,10 @@ public class Raytracer{
             for (int y = 0; y < sceneHeight; y++){
                 Ray ray = scene.getCamera().sendRay(x,y);
                 Intersection i = scene.calculateNearIntersection(ray);
-                Light light = scene.getLight();
+                ArrayList<Light> lights = scene.getLights();
 
                 if (i != null && i.exists()) {
-                    Vector3D color = calculateFlatShading(i, light);
+                    Vector3D color = calculateShading(i, lights);
                     result.setRGB(x, y, Vector3D.convertToRGB(color));
                 } else if (i!= null &&
                         (i.getT0() < this.scene.getCamera().getNearPlane() ||
@@ -60,14 +60,20 @@ public class Raytracer{
         }
     }
 
-    public static Vector3D calculateFlatShading(Intersection intersection, Light light){
+    public static Vector3D calculateShading(Intersection intersection, ArrayList<Light> lights){
         Vector3D objectColor = intersection.getObject().getObjectColor();
         Vector3D normal = intersection.getNormal();
-        double nDotL = light.calculateNDotL(intersection);
+        Vector3D finalColor = new Vector3D(0,0,0);
 
-        Vector3D computedColor = Vector3D.hadamard(objectColor, light.getColor());
-        double computedLight = light.getIntensity() * nDotL;
+        for (Light light : lights) {
+            double nDotL = light.calculateNDotL(intersection);
 
-        return Vector3D.mult(computedColor, computedLight);
+            Vector3D computedColor = Vector3D.hadamard(objectColor, light.getColor());
+            double computedLight = light.getIntensity() * nDotL;
+            Vector3D temp = Vector3D.mult(computedColor, computedLight);
+            finalColor = Vector3D.add(finalColor, temp);
+        }
+
+        return finalColor;
     }
 }
