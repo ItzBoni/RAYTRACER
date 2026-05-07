@@ -43,16 +43,19 @@ public class Triangle extends Object3D implements Intersectable{
         this.w = 1 - (this.u + this.v);
 
         Vector3D point = Vector3D.add(origin, Vector3D.mult(direction, smallT));
-        return new Intersection(point, smallT, smallT, calculateFaceNormal(),this);
+        return new Intersection(point, smallT, smallT, calculateInterpolatedNormal(),this);
     }
 
     //Calculate normal at intersection for Phong shading.
-    private void calculateVertexNormals(){
-        if (getVertexNormals().length < 3){
-            //Compute the vertex normals manually
-        } else {
-            //Grab vertex normals to return into intersection
-        }
+    private Vector3D calculateInterpolatedNormal(){
+        if (getVertexNormals().length < 3) return getNormal();
+
+        Vector3D wNormal = Vector3D.mult(getVertexNormals()[0], this.w);
+        Vector3D uNormal = Vector3D.mult(getVertexNormals()[1], this.u);
+        Vector3D vNormal = Vector3D.mult(getVertexNormals()[2], this.v);
+
+        Vector3D interpolatedNormal = Vector3D.add(wNormal, Vector3D.add(uNormal, vNormal));
+        return Vector3D.normalize(interpolatedNormal);
     }
 
     private Vector3D calculateFaceNormal(){
