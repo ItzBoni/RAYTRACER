@@ -12,7 +12,7 @@ public class DirectionalLight extends Light{
 
     @Override
     public double calculateNDotL(Intersection intersection){
-        return Math.max(Vector3D.dot(intersection.getNormal(), this.direction), 0.0);
+        return Math.max(Vector3D.dot(intersection.getNormal(), Vector3D.mult(this.direction, -1.0)), 0.0);
     }
 
     public Vector3D getDirection(){
@@ -20,6 +20,6 @@ public class DirectionalLight extends Light{
     }
 
     public void setDirection(Vector3D direction){
-        this.direction = direction;
+        this.direction = Vector3D.normalize(direction);
     }
 }

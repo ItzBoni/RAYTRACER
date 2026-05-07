@@ -7,6 +7,7 @@ public class Sphere extends Object3D {
     private double radius;
 
     public Sphere(Vector3D position, double radius, Vector3D sphereColor) {
+        super(sphereColor);
         this.position = position;
         this.radius = radius;
         this.objectColor = sphereColor;
@@ -39,6 +40,8 @@ public class Sphere extends Object3D {
         // Compute the actual hit point using the closer t
         Vector3D point = Vector3D.add(ray.getOrigin(), Vector3D.mult(ray.getDirection(), t0));
 
-        return new Intersection(point, t0, t1, this);
+        Vector3D normal = Vector3D.normalize(Vector3D.sub(point,this.position));
+
+        return new Intersection(point, t0, t1, normal,this);
     }
 }

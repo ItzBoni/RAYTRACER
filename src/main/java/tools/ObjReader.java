@@ -10,10 +10,12 @@ import java.util.ArrayList;
 
 public class ObjReader {
     public static Topology reader(String location) {
+        Vector3D defaultColor = new Vector3D(0, 0, 1);
         ArrayList<Vector3D> vertices = new ArrayList<>();
         ArrayList<Vector3D> normals = new ArrayList<>();
         ArrayList<Vector3D> vertexTextures = new ArrayList<>();
         ArrayList<Triangle> faces = new ArrayList<>();
+        ArrayList<Topology> smoothingGroups = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(
                 new FileReader(location))) {
@@ -43,10 +45,10 @@ public class ObjReader {
                             temp[1] = group[i+1];
                             temp[2] = group[i+2];
 
-                            faces.add(extractFace(temp,vertices,normals));
+                            faces.add(extractFace(temp,vertices,normals, defaultColor));
                         }
                     } else {
-                        faces.add(extractFace(group, vertices, normals));
+                        faces.add(extractFace(group, vertices, normals, defaultColor));
                     }
                 }
             }
@@ -57,7 +59,7 @@ public class ObjReader {
 
         Vector3D meshCenter = calculateOrigin(vertices);
 
-        return new Topology(meshCenter, faces);
+        return new Topology(meshCenter, faces, defaultColor);
     }
 
     private static Vector3D extractCoords(String s) {
@@ -83,7 +85,7 @@ public class ObjReader {
         return new Vector3D(x, y, z);
     }
 
-    private static Triangle extractFace(String[] groups, ArrayList<Vector3D> vertices, ArrayList<Vector3D> normals) {
+    private static Triangle extractFace(String[] groups, ArrayList<Vector3D> vertices, ArrayList<Vector3D> normals, Vector3D defaultColor) {
         Vector3D[] faceVertices = new Vector3D[3];
         Vector3D[] faceNormals  = new Vector3D[3];
 
@@ -99,8 +101,6 @@ public class ObjReader {
                 faceNormals[i]  = null;
             }
         }
-
-        Vector3D defaultColor = new Vector3D(0, 0, 1);
         return new Triangle(faceVertices[0], faceVertices[1], faceVertices[2],
                 faceNormals, defaultColor);
     }

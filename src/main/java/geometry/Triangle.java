@@ -2,15 +2,15 @@ package geometry;
 
 import tools.*;
 
-public class Triangle implements Intersectable{
+public class Triangle extends Object3D implements Intersectable{
     private Vector3D[] points;
     private Vector3D[] vertexNormals;
-    private Vector3D color;//Will use them later for computing smooth shading
+    private Vector3D normal;
     private double u, v, w;
 
     public Triangle(Vector3D v0, Vector3D v1, Vector3D v2, Vector3D[] vertexNormals, Vector3D color){
+        super(color);
         this.points = new Vector3D[]{v0, v1, v2};
-        setColor(color);
         setVertexNormals(vertexNormals);
         calculateFaceNormal();
     }
@@ -43,12 +43,16 @@ public class Triangle implements Intersectable{
         this.w = 1 - (this.u + this.v);
 
         Vector3D point = Vector3D.add(origin, Vector3D.mult(direction, smallT));
-        return new Intersection(point, smallT, smallT, this);
+        return new Intersection(point, smallT, smallT, calculateFaceNormal(),this);
     }
 
     //Calculate normal at intersection for Phong shading.
     private void calculateVertexNormals(){
-
+        if (getVertexNormals().length < 3){
+            //Compute the vertex normals manually
+        } else {
+            //Grab vertex normals to return into intersection
+        }
     }
 
     private Vector3D calculateFaceNormal(){
@@ -57,10 +61,6 @@ public class Triangle implements Intersectable{
         Vector3D w = Vector3D.sub(this.points[0], this.points[2]);
 
         return Vector3D.normalize(Vector3D.cross(v, w));
-    }
-
-    private Vector3D calculatePhongNormal(Vector3D vertexNormal){
-
     }
 
     public Vector3D[] getPoints() {
@@ -89,9 +89,5 @@ public class Triangle implements Intersectable{
 
     public void setNormal(Vector3D normal){
         this.normal = normal;
-    }
-
-    public void setColor(Vector3D color) {
-        this.color = color;
     }
 }

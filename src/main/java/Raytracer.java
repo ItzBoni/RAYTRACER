@@ -33,8 +33,7 @@ public class Raytracer{
                 Light light = scene.getLight();
 
                 if (i != null && i.exists()) {
-                    Object3D hitObject = i.getObject();
-                    Vector3D color = hitObject.getObjectColor(light.getColor(), light.getDirection(), light.getIntensity());
+                    Vector3D color = calculateFlatShading(i, light);
                     result.setRGB(x, y, Vector3D.convertToRGB(color));
                 } else if (i!= null &&
                         (i.getT0() < this.scene.getCamera().getNearPlane() ||
@@ -59,5 +58,16 @@ public class Raytracer{
         } catch (IOException e) {
             System.err.println("Failed to save render: " + e.getMessage());
         }
+    }
+
+    public static Vector3D calculateFlatShading(Intersection intersection, Light light){
+        Vector3D objectColor = intersection.getObject().getObjectColor();
+        Vector3D normal = intersection.getNormal();
+        double nDotL = light.calculateNDotL(intersection);
+
+        Vector3D computedColor = Vector3D.hadamard(objectColor, light.getColor());
+        double computedLight = light.getIntensity() * nDotL;
+
+        return Vector3D.mult(computedColor, computedLight);
     }
 }

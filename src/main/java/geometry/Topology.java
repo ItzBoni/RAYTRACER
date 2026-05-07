@@ -10,7 +10,8 @@ public class Topology extends Object3D {
     private Vector3D origin;
     private ArrayList<Triangle> triangles;
 
-    public Topology(Vector3D origin, ArrayList<Triangle> t) {
+    public Topology(Vector3D origin, ArrayList<Triangle> t, Vector3D topologyColor) {
+        super(topologyColor);
         setTriangles(t);
         setOrigin(origin);
     }
@@ -19,11 +20,8 @@ public class Topology extends Object3D {
     public Intersection intersect(Ray ray) {
         Intersection closest = null;
 
-        Vector3D localOrigin = Vector3D.sub(ray.getOrigin(), this.origin);
-        Ray localRay = new Ray(localOrigin, ray.getDirection());
-
         for (Triangle triangle : triangles) {
-            Intersection i = triangle.intersect(localRay);
+            Intersection i = triangle.intersect(ray);
 
             if (!i.exists()) continue;
 
