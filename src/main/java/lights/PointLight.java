@@ -24,6 +24,16 @@ public class PointLight extends Light{
         return this.getIntensity() / (distance * distance);
     }
 
+    @Override
+    public Vector3D getShadowDirection(Vector3D point) {
+        return Vector3D.normalize(Vector3D.sub(this.position, point));
+    }
+
+    @Override
+    public double getShadowMaxDistance(Vector3D point) {
+        return Vector3D.sub(this.position, point).getMagnitude();
+    }
+
     public void setPosition(Vector3D position){
         this.position = position;
     }

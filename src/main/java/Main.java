@@ -25,7 +25,7 @@ public class Main {
         objects.add(sphere);
 
         System.out.println("Adding lights...");
-        Light dirLight = new DirectionalLight(new Vector3D(0,1,-1), Vector3D.convertToVector(Color.white.getRGB()), 1);
+        Light dirLight = new DirectionalLight(new Vector3D(0,1,1), Vector3D.convertToVector(Color.white.getRGB()), 1);
         Light pointLight = new PointLight(new Vector3D(-5, 5, 0), Vector3D.convertToVector(Color.blue.getRGB()), 25);
 
         lights.add(dirLight);

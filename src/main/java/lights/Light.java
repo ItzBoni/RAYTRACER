@@ -13,6 +13,14 @@ public abstract class Light {
 
     public abstract double calculateNDotL(Intersection intersection);
 
+    public abstract double getFalloffIntensity(Vector3D point);
+
+    public abstract Vector3D getShadowDirection(Vector3D point);
+
+    public abstract double getShadowMaxDistance(Vector3D point);
+
+
+    //Getters and setters
     public void setIntensity(double intensity){
         this.intensity = intensity;
     }
@@ -28,6 +36,4 @@ public abstract class Light {
     public void setColor(Vector3D color) {
         this.color = color;
     }
-
-    public abstract double getFalloffIntensity(Vector3D point);
 }

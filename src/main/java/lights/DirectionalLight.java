@@ -20,6 +20,16 @@ public class DirectionalLight extends Light{
         return this.getIntensity();
     }
 
+    @Override
+    public Vector3D getShadowDirection(Vector3D point) {
+        return Vector3D.mult(this.direction, -1.0);
+    }
+
+    @Override
+    public double getShadowMaxDistance(Vector3D point) {
+        return Double.MAX_VALUE;
+    }
+
     public Vector3D getDirection(){
         return this.direction;
     }

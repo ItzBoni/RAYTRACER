@@ -16,6 +16,40 @@ public class Raytracer{
         setScene(s);
     }
 
+    public static Vector3D calculateShading(Intersection intersection, ArrayList<Light> lights, Scene scene){
+        Vector3D objectColor = intersection.getObject().getObjectColor();
+        Vector3D normal = intersection.getNormal();
+        Vector3D finalColor = new Vector3D(0,0,0);
+
+        for (Light light : lights) {
+            double nDotL = light.calculateNDotL(intersection);
+
+            Intersection shadow = shadowIntersection(intersection, light, scene);
+
+            if (shadow != null && shadow.exists() && shadow.getT0() < light.getShadowMaxDistance(intersection.getPoint())) continue;
+
+            Vector3D computedColor = Vector3D.clampColor(Vector3D.hadamard(objectColor, light.getColor()));
+            double computedLight = light.getFalloffIntensity(intersection.getPoint()) * nDotL;
+            Vector3D temp = Vector3D.mult(computedColor, computedLight);
+            finalColor = Vector3D.clampColor(Vector3D.add(finalColor, temp));
+        }
+
+        return finalColor;
+    }
+
+    public static Intersection shadowIntersection(Intersection intersection, Light light, Scene scene){
+        Vector3D point = intersection.getPoint();
+        Vector3D offsetPoint = Vector3D.add( point, Vector3D.mult(intersection.getNormal(), 1e-4));
+
+        Ray shadowRay = new Ray(offsetPoint, light.getShadowDirection(point));
+
+        Intersection i = scene.calculateNearIntersection(shadowRay);
+
+        if (i != null && i.exists()) return i;
+
+        return new Intersection(false);
+    }
+
     public void setScene(Scene s){
         this.scene = s;
     }
@@ -37,7 +71,7 @@ public class Raytracer{
                 ArrayList<Light> lights = scene.getLights();
 
                 if (i != null && i.exists()) {
-                    Vector3D color = Shader.calculateShading(i, lights);
+                    Vector3D color = calculateShading(i, lights, scene);
                     result.setRGB(x, y, Vector3D.convertToRGB(color));
                 } else if (i!= null &&
                         (i.getT0() < this.scene.getCamera().getNearPlane() ||
