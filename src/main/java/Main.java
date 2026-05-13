@@ -17,14 +17,16 @@ public class Main {
 
         System.out.println("Input absolute path of .obj path");
         String loc = sc.nextLine();
+        System.out.println("Reading object...");
         Topology cubo = ObjReader.reader(loc);
-        Object3D sphere = new Sphere(new Vector3D(0, -100, 20), 5, new Vector3D(1,1,1));
+        Object3D sphere = new Sphere(new Vector3D(0, -100, 25), 15, new Vector3D(1,1,1));
 
         objects.add(cubo);
         objects.add(sphere);
 
+        System.out.println("Adding lights...");
         Light dirLight = new DirectionalLight(new Vector3D(0,1,-1), Vector3D.convertToVector(Color.white.getRGB()), 1);
-        Light pointLight = new PointLight(new Vector3D(-5, 5, 0), Vector3D.convertToVector(Color.blue.getRGB()), 50);
+        Light pointLight = new PointLight(new Vector3D(-5, 5, 0), Vector3D.convertToVector(Color.blue.getRGB()), 25);
 
         lights.add(dirLight);
         lights.add(pointLight);
@@ -35,6 +37,7 @@ public class Main {
 
         Raytracer r = new Raytracer(s);
 
+        System.out.println("Rendering image...");
         BufferedImage render = r.rayTrace();
         r.exportToPNG(render);
     }

@@ -21,7 +21,7 @@ public class PointLight extends Light{
     public double getFalloffIntensity(Vector3D point){
         double distance = Vector3D.sub(this.getPosition(), point).getMagnitude();
 
-        return this.getIntensity() / distance;
+        return this.getIntensity() / (distance * distance);
     }
 
     public void setPosition(Vector3D position){
