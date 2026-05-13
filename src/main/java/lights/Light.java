@@ -28,4 +28,6 @@ public abstract class Light {
     public void setColor(Vector3D color) {
         this.color = color;
     }
+
+    public abstract double getFalloffIntensity(Vector3D point);
 }

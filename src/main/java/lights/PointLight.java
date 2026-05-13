@@ -12,9 +12,16 @@ public class PointLight extends Light{
 
     @Override
     public double calculateNDotL(Intersection intersection){
-        Vector3D direction = Vector3D.normalize(Vector3D.sub(intersection.getPoint(), this.getPosition()));
+        Vector3D direction = Vector3D.normalize(Vector3D.sub(this.getPosition(), intersection.getPoint()));
 
         return Math.max(Vector3D.dot(intersection.getNormal(), direction), 0);
+    }
+
+    @Override
+    public double getFalloffIntensity(Vector3D point){
+        double distance = Vector3D.sub(this.getPosition(), point).getMagnitude();
+
+        return this.getIntensity() / distance;
     }
 
     public void setPosition(Vector3D position){

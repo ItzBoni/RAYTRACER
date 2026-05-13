@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class ObjReader {
     public static Topology reader(String location) {
-        Vector3D defaultColor = new Vector3D(0, 0, 1);
+        Vector3D defaultColor = new Vector3D(1, 1, 1);
         ArrayList<Vector3D> vertices = new ArrayList<>();
         ArrayList<Vector3D> normals = new ArrayList<>();
         ArrayList<Vector3D> vertexTextures = new ArrayList<>();

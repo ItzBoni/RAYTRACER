@@ -68,10 +68,10 @@ public class Raytracer{
         for (Light light : lights) {
             double nDotL = light.calculateNDotL(intersection);
 
-            Vector3D computedColor = Vector3D.hadamard(objectColor, light.getColor());
-            double computedLight = light.getIntensity() * nDotL;
+            Vector3D computedColor = Vector3D.clampColor(Vector3D.hadamard(objectColor, light.getColor()));
+            double computedLight = light.getFalloffIntensity(intersection.getPoint()) * nDotL;
             Vector3D temp = Vector3D.mult(computedColor, computedLight);
-            finalColor = Vector3D.add(finalColor, temp);
+            finalColor = Vector3D.clampColor(Vector3D.add(finalColor, temp));
         }
 
         return finalColor;

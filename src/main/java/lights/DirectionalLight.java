@@ -15,6 +15,11 @@ public class DirectionalLight extends Light{
         return Math.max(Vector3D.dot(intersection.getNormal(), /*Vector3D.mult(*/this.direction/*, -1.0)*/), 0.0);
     }
 
+    @Override
+    public double getFalloffIntensity(Vector3D point){
+        return this.getIntensity();
+    }
+
     public Vector3D getDirection(){
         return this.direction;
     }
