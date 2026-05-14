@@ -25,13 +25,13 @@ public class Main {
         objects.add(sphere);
 
         System.out.println("Adding lights...");
-        Light dirLight = new DirectionalLight(new Vector3D(0,1,1), Vector3D.convertToVector(Color.white.getRGB()), 1);
+        Light dirLight = new DirectionalLight(new Vector3D(0,1,0), Vector3D.convertToVector(Color.white.getRGB()), 1);
         Light pointLight = new PointLight(new Vector3D(-5, 5, 0), Vector3D.convertToVector(Color.blue.getRGB()), 25);
 
         lights.add(dirLight);
         lights.add(pointLight);
 
-        Camera camera = new Camera(new Vector3D(0,0,-20), new Vector3D(0,0,0), 60f, 2000, 2000, 10, 3000);
+        Camera camera = new Camera(new Vector3D(-10, 8, 12), new Vector3D(0, 1, 0), 60f, 1000, 1000, 0.1, 3000);
 
         Scene s = new Scene(camera, objects, Vector3D.convertToVector(Color.black.getRGB()), lights);
 
