@@ -2,7 +2,7 @@ package geometry;
 
 import tools.*;
 
-public class Triangle extends Object3D implements Intersectable{
+public class Triangle extends Object3D{
     private Vector3D[] points;
     private Vector3D[] vertexNormals;
     private Vector3D normal;
@@ -44,6 +44,15 @@ public class Triangle extends Object3D implements Intersectable{
 
         Vector3D point = Vector3D.add(origin, Vector3D.mult(direction, smallT));
         return new Intersection(point, smallT, smallT, calculateInterpolatedNormal(),this);
+    }
+
+    @Override
+    public AABB getBounds() {
+        Vector3D epsilon = new Vector3D(1e-4, 1e-4, 1e-4);
+
+        Vector3D min = Vector3D.min(this.points[0], Vector3D.min(this.points[1], this.points[2]));
+        Vector3D max = Vector3D.max(this.points[0], Vector3D.max(this.points[1], this.points[2]));
+        return new AABB(Vector3D.sub(min, epsilon), Vector3D.add(max,epsilon));
     }
 
     //Calculate normal at intersection for Phong shading.

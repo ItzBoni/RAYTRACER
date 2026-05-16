@@ -34,6 +34,22 @@ public class Vector3D {
         return new Vector3D(r, g, b);
     }
 
+    public static Vector3D min(Vector3D a, Vector3D b) {
+        return new Vector3D(
+                Math.min(a.getX(), b.getX()),
+                Math.min(a.getY(), b.getY()),
+                Math.min(a.getZ(), b.getZ())
+        );
+    }
+
+    public static Vector3D max(Vector3D a, Vector3D b) {
+        return new Vector3D(
+                Math.max(a.getX(), b.getX()),
+                Math.max(a.getY(), b.getY()),
+                Math.max(a.getZ(), b.getZ())
+        );
+    }
+
     //Getters and setters
     public double getX() {
         return x;

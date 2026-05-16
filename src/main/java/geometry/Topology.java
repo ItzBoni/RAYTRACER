@@ -34,6 +34,11 @@ public class Topology extends Object3D {
         return closest;
     }
 
+    @Override
+    public AABB getBounds(){
+        return AABB.of(new ArrayList<>(this.triangles));
+    }
+
     public void setTriangles(ArrayList<Triangle> t) {
         this.triangles = t;
     }

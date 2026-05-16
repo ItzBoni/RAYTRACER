@@ -5,4 +5,5 @@ import tools.Ray;
 
 public interface Intersectable {
     public Intersection intersect(Ray ray);
+    AABB getBounds();
 }
